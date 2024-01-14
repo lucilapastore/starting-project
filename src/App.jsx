@@ -5,18 +5,20 @@ import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header/Header.jsx";
 import CoreConcept from "./components/CoreConcepts.jsx";
 import TabButton from "./components/TabButton.jsx";
+import { EXAMPLES } from "./data.js";
 
 function App() {
-  useState();
-  let tabContent = "Please click a button";
+  const [selectedTopic, setSelectedTopic] = useState("components");
 
   function handleSelect(selectedButton) {
     /* // should be a string that is either "components", "jsx", "props" or "state"
     // These are our four identifiers that should be received through that parameter.
   // Depending on wich button was clicked, selectedButton should be one of these four values. */
 
-    tabContent = selectedButton;
+    setSelectedTopic(selectedButton);
   }
+
+  console.log("APP COMPONENT EXECUTING");
   return (
     <div>
       <Header />
@@ -62,7 +64,13 @@ function App() {
             <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
             <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
           </menu>
-          {tabContent}
+          <div id="tab-content">
+            <h3>{EXAMPLES[selectedTopic].title}</h3>
+            <p>{EXAMPLES[selectedTopic].description}</p>
+            <pre>
+              <code>{EXAMPLES[selectedTopic].code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
